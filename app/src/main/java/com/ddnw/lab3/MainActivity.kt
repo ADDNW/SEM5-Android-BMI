@@ -14,11 +14,11 @@ import com.ddnw.lab3.bmi.Bmi
 import com.ddnw.lab3.bmi.BmiCmKg
 import com.ddnw.lab3.bmi.BmiInLb
 import com.ddnw.lab3.databinding.ActivityMainBinding
+import com.ddnw.lab3.detalis.BmiDetailsActivity
+import com.ddnw.lab3.history.HistoryActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MainActivity : AppCompatActivity() {

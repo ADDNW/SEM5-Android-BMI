@@ -1,4 +1,4 @@
-package com.ddnw.lab3
+package com.ddnw.lab3.history
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -11,9 +11,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ddnw.lab3.R
 import com.ddnw.lab3.databinding.ActivityHistoryBinding
-import com.ddnw.lab3.history.BmiHistoryEntry
-import java.lang.NumberFormatException
 
 class HistoryActivity : AppCompatActivity() {
     companion object {
@@ -30,7 +29,11 @@ class HistoryActivity : AppCompatActivity() {
         setContentView(binding.root)
         history = readHistory()
         val rvHistory = findViewById<View>(R.id.rvHistory) as RecyclerView
-        rvHistory.adapter = HistoryAdapter(history, getString(R.string.history_bmi), getString(R.string.history_params))
+        rvHistory.adapter = HistoryAdapter(
+            history,
+            getString(R.string.history_bmi),
+            getString(R.string.history_params)
+        )
         rvHistory.layoutManager = LinearLayoutManager(this)
     }
 
@@ -75,7 +78,7 @@ class HistoryAdapter (private val history: List<BmiHistoryEntry>, private val bm
         return ViewHolder(historyView)
     }
 
-    override fun onBindViewHolder(holder: HistoryAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val entry = history[position]
         holder.bmiTV.text = String.format(bmi_text, entry.bmi)
         holder.dataTV.text = entry.data

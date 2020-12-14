@@ -1,9 +1,9 @@
-package com.ddnw.lab3
+package com.ddnw.lab3.detalis
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.ddnw.lab3.R
 import com.ddnw.lab3.databinding.ActivityBmiDetailsBinding
-import kotlinx.android.synthetic.main.activity_bmi_details.*
 
 class BmiDetailsActivity : AppCompatActivity() {
 
