@@ -1,8 +1,7 @@
 package com.ddnw.lab3
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,9 +14,12 @@ import com.ddnw.lab3.bmi.BmiCmKg
 import com.ddnw.lab3.bmi.BmiInLb
 import com.ddnw.lab3.databinding.ActivityMainBinding
 import com.ddnw.lab3.detalis.BmiDetailsActivity
+import com.ddnw.lab3.history.BmiHistoryDatabase
+import com.ddnw.lab3.history.BmiHistoryEntry
 import com.ddnw.lab3.history.HistoryActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     var bmi: Double = 0.0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -39,8 +40,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.option_menu, menu);
-        return true;
+        menuInflater.inflate(R.menu.option_menu, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -89,10 +90,10 @@ class MainActivity : AppCompatActivity() {
     fun count(view: View) {
         binding.apply {
             var dataValid = true
-            var massMax: Int
-            var massMin: Int
-            var heightMax: Int
-            var heightMin: Int
+            val massMax: Int
+            val massMin: Int
+            val heightMax: Int
+            val heightMin: Int
 
             if (mode == "eu") {
                 massMax = 200
@@ -117,8 +118,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             if (dataValid) {
-                var mass = massET.text.toString().toDouble()
-                var height = heightET.text.toString().toDouble()
+                val mass = massET.text.toString().toDouble()
+                val height = heightET.text.toString().toDouble()
 
                 if (mass < massMin) {
                     dataValid = false
@@ -141,7 +142,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 if (dataValid) {
-                    var counter: Bmi = if (mode == "eu") {
+                    val counter: Bmi = if (mode == "eu") {
                         BmiCmKg(mass, height)
                     } else {
                         BmiInLb(mass, height)
@@ -155,14 +156,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showDetails(view: View) {
-        var intent = Intent(this, BmiDetailsActivity::class.java )
+        val intent = Intent(this, BmiDetailsActivity::class.java )
         intent.putExtra("BMI", bmi)
         intent.putExtra("COLOR", view.bmiTV.currentTextColor)
         startActivityForResult(intent, 0)
     }
 
     private fun showHistory() {
-        var intent = Intent(this, HistoryActivity::class.java )
+        val intent = Intent(this, HistoryActivity::class.java )
         startActivityForResult(intent, 0)
     }
 
@@ -197,38 +198,37 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun storeResultInHistory(result: Double, mass: Double, height: Double ) {
-        val sharedPref: SharedPreferences =  getSharedPreferences(HistoryActivity.SHARED_NAME, Context.MODE_PRIVATE)
-        var height_unit: String
-        var mass_unit: String
-        if (mode == EU_UNITS) {
-            height_unit = getString(R.string.unit_cm)
-            mass_unit = getString(R.string.unit_kg)
-        } else {
-            height_unit = getString(R.string.unit_lb)
-            mass_unit = getString(R.string.unit_in)
-        }
-
-        binding.apply {
-            var editor = sharedPref.edit()
-            editor.apply {
-                Log.d(LOG_KEY,"Start save")
-                //Debug only
-                var counter = 0
-                for (i in 9 downTo 1) {
-                    if (sharedPref.getString("history_${i-1}", "") != "") counter++
-                    putString("history_$i", sharedPref.getString("history_${i-1}", ""))
-                    apply()
-                }
-                Log.d(LOG_KEY, "Saved: $counter")
-                val raw = String.format(Locale.ROOT,"%.2f;%.2f %s;%.2f %s;%s", result, mass, mass_unit, height, height_unit,
-                    SimpleDateFormat("HH:mm dd.MM.yyyy").format(Date())
-                )
-                Log.d(LOG_KEY,"Save new: $raw")
-                putString("history_0", raw)
-                apply()
-                Log.d(LOG_KEY, "Saved: " + sharedPref.getString("history_0", "").toString())
+        val context = this
+        runBlocking {
+            val database = BmiHistoryDatabase.getInstance(context)
+            val heightUnit: String
+            val massUnit: String
+            if (mode == EU_UNITS) {
+                heightUnit = getString(R.string.unit_cm)
+                massUnit = getString(R.string.unit_kg)
+            } else {
+                heightUnit = getString(R.string.unit_lb)
+                massUnit = getString(R.string.unit_in)
             }
+
+            val list = database.historyDao().getAllSortByDate()
+            if (list.size == 10) {
+                database.historyDao().delete(list.last())
+            }
+
+            val newEntry = BmiHistoryEntry(
+                bmi = String.format("%.2f", result),
+                mass =  String.format("%.2f %s", mass, massUnit),
+                height =  String.format("%.2f %s", height, heightUnit),
+                date =  SimpleDateFormat("HH:mm dd.MM.yyyy").format(Date())
+            )
+
+            Log.d(LOG_KEY, "Created newEntry with id: ${newEntry.id}")
+            database.historyDao().insert(newEntry)
         }
     }
+
+
 }

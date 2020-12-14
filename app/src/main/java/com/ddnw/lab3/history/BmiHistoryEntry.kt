@@ -1,5 +1,14 @@
 package com.ddnw.lab3.history
 
-import java.time.LocalDateTime
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-class BmiHistoryEntry(val bmi: String, val mass: String, val height: String, val data: String)
+@Entity
+data class BmiHistoryEntry(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @ColumnInfo(name = "bmi") val bmi: String,
+    @ColumnInfo(name = "mass") val mass: String,
+    @ColumnInfo(name = "height") val height: String,
+    @ColumnInfo(name = "date") val date: String
+)
