@@ -7,4 +7,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Dark" parent="AppTheme">
+        <item name="android:background">@color/bmiBlue</item>
+    </style>
+
+    <style name="AppTheme.Light" parent="AppTheme">
+        <item name="android:background">@color/bmiGreen</item>
+    </style>
+
 </resources>

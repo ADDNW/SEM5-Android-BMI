@@ -32,11 +32,13 @@ class MainActivity : AppCompatActivity() {
     var mode: String = EU_UNITS
     lateinit var binding: ActivityMainBinding
     var bmi: Double = 0.0
+    lateinit var lightSensor: LightSensor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        lightSensor = LightSensor(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -85,6 +87,16 @@ class MainActivity : AppCompatActivity() {
             heightET.setText(savedInstanceState.getString("HEIGHT", ""))
             massET.setText(savedInstanceState.getString("MASS", ""))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lightSensor.watch()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        lightSensor.stopWatching()
     }
 
     fun count(view: View) {
