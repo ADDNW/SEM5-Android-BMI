@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin">24dp</dimen>
+    <dimen name="margin_distance">10dp</dimen>
+    <dimen name="menu_width">100dp</dimen>
+    <dimen name="menu_height">60dp</dimen>
+    <dimen name="bigBMI">40sp</dimen>
+    <dimen name="monsterDescription">20sp</dimen>
+    <dimen name="monsterName">35sp</dimen>
+    <dimen name="rvMarginTop">30dp</dimen>
+    <dimen name="history_separator">3dp</dimen>
+</resources>

@@ -1,0 +1,51 @@
+<resources>
+    <!-- General -->
+    <string name="app_name">lab3</string>
+    <string name="empty_value" />
+
+    <!-- Menu -->
+    <string name="history">History</string>
+    <string name="units_eu">Set units: kg, cm</string>
+    <string name="units_us">Set units: lb, in</string>
+
+    <!-- Counter -->
+    <string name="mass_kg">Mass in kg</string>
+    <string name="mass_lb">Mass in lb</string>
+    <string name="mass_is_empty">Missing mass</string>
+    <string name="mass_too_high">Mass too high</string>
+    <string name="mass_too_low">Mass too low</string>
+    <string name="height_cm">Height in cm</string>
+    <string name="height_in">Height in in</string>
+    <string name="height_is_empty">Missing height</string>
+    <string name="height_too_high">Height too high</string>
+    <string name="height_too_low">Height too low</string>
+    <string name="count_bmi">Count BMI</string>
+
+    <!-- Monsters -->
+    <string name="unknown_monster">Unknown</string>
+    <string name="monster_missing_description">No data</string>
+    <string name="skeleton_name">Szkielet</string>
+    <string name="skeleton_description">Niby tylko kości, a jednak dalej żywe.</string>
+    <string name="ghoul_name">Ghul</string>
+    <string name="ghoul_description">Trudno się najeść zwłokami</string>
+    <string name="zombie_name">Zombie</string>
+    <string name="zombie_description">Nadgnite zwłoki, niedawno ożywione.</string>
+    <string name="necromancer_name">Nekromanta</string>
+    <string name="necromancer_description">Fizycznie zdrowy, ale czy psychicznie?</string>
+    <string name="death_warrior_name">Rycerz śmierci</string>
+    <string name="death_warrior_description">Ta zbroja jest za mała, czy on za duży?</string>
+    <string name="werewolf_name">Wilkołak</string>
+    <string name="werewolf_description">Czy to futro aby go nie pogrubia?</string>
+    <string name="frankenstein_name">Frankenstein</string>
+    <string name="frankenstein_description">Wielkie dzieło prawdziwego szaleńca</string>
+    <string name="stitches_name">Zszywaniec</string>
+    <string name="stitches_description">Jaki szaleniec stworzył tą abominację?</string>
+
+    <!-- History -->
+    <string name="history_bmi">BMI: %s</string>
+    <string name="history_params">Mass: %s, Height: %s</string>
+    <string name="unit_lb">lb</string>
+    <string name="unit_in">in</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+</resources>

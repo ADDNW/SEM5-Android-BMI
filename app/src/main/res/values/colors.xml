@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="bmiDarkBlue">#082e79</color>
+    <color name="bmiBlue">#4169e1</color>
+    <color name="bmiLightGreen">#95FF9B</color>
+    <color name="bmiGreen">#A7FF36</color>
+    <color name="bmiYellow">#FFE600</color>
+    <color name="bmiOrange">#FFA200</color>
+    <color name="bmiRed">#cf2929</color>
+    <color name="bmiDarkRed">#801818</color>
+</resources>
